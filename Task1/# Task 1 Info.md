@@ -157,14 +157,7 @@
 
 ------------
 
-* ### 과제 요구 사항 
-
-  * 
-  
-
------------
-
-* ### 필요한 기술
+* ### 과제 요구 기술
 
   * 
 
@@ -185,7 +178,10 @@
   
 
   - 2019.08.15.THU
-    1. 
+    1. sftp 명령어 실습을 통한 이해. [ put | get ] + [file name]
+       - 파일이름이 #으로 시작하는 것을 put으로 원격  시스템으로 복사하려고 했는데, 인식을 못하더라...
+       - 파일이 복사될 곳과  복사할 파일이 존재하는 곳으로 각각 cd 와 lcd를 통해 이동해서 한다.
+    2. 
 
 ----------------------
 
@@ -216,3 +212,11 @@
   * https://docs.oracle.com/cd/E37933_01/html/E36613/remotehowtoaccess-14.html#remotehowtoaccess-40629
   
     <원격시스템에  대한 sftp 연결을 열고 닫는 방법>
+    
+  * https://altkeycode.tistory.com/17 <인텔리제이 web 프로젝트 시작하기  maven>
+  
+  * https://digitalbourgeois.tistory.com/58 <JAVA : HttpClient로 REST API 호출하기>
+  
+  * https://gs.saro.me/dev?tn=581 <자바 리눅스 SSH 사용하기>
+  
+  * https://gs.saro.me/dev?tn=574 <자바 : FTP , SFTP , ,FTPS 사용하기>
