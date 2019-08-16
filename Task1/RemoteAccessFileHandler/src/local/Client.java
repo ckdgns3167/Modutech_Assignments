@@ -77,25 +77,27 @@ public class Client {
     public static void main(String[] args) {
 
         scan = new Scanner(System.in);
-        System.out.println("Start RemoteAccessFileHandler program");
+        System.out.println("/............Start RemoteAccessFileHandler program...........\\");
 
         while (isRunning) {
 
             if(firstConnection) {
-                System.out.println("[1] Remote Access [2] File Upload [3] File download [4] Bye");
-                firstConnection = false;
+                System.out.print("[1] Connect to Remote [2] Upload File [3] Download File [4] Bye~ : ");
             }
             else
-                System.out.println("[1] Connect to another [2] File Upload [3] File download [4] Bye");
+                System.out.print("[1] Connect to Another [2] Upload File [3] Download File [4] Bye~ : ");
 
             int userOrder = scan.nextInt();
 
             try {
                 switch (userOrder) {
                     case 1:
-                        if(!firstConnection)
+                        if(!firstConnection) {
                             disconnect();
-                        System.out.println("Enter Target's SSH Access Info below... ");
+                        }
+                        firstConnection = false;
+                        System.out.println("Enter Target's SSH Access Info below...");
+                        System.out.println("---------------------------------------");
                         System.out.print("  IP : ");//"192.168.1.126"
                         target.setTarget(scan.next());
                         System.out.print("user : ");//ubuntu
@@ -104,6 +106,7 @@ public class Client {
                         target.setPassword(scan.next());
                         System.out.print("port : ");//22
                         target.setPort(scan.nextInt());
+                        System.out.println("---------------------------------------");
                         connect();
                         break;
                     case 2:
