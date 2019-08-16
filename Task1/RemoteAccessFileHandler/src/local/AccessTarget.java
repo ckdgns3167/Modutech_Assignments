@@ -4,7 +4,7 @@ class AccessTarget{
     String target = null;//접속 대상 IP
     Integer port = null;
     String user = null;
-    String password = null;
+    String pass = null;
 
     public String getTarget() {
         return target;
@@ -30,11 +30,11 @@ class AccessTarget{
         this.user = userName;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPass() {
+        return pass;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPass(String pass) {
+        this.pass = pass;
     }
 }

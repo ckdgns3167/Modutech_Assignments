@@ -29,7 +29,7 @@ public class Client {
         // 3. 세션과 관련된 정보를 설정한다.
         session.setConfig("StrictHostKeyChecking", "no");
         // 4. 패스워드를 설정한다.
-        session.setPassword(target.password);
+        session.setPassword(target.pass);
         // 5. 접속한다.
         session.connect();
         // 6. sftp 채널을 연다.
@@ -103,7 +103,7 @@ public class Client {
                         System.out.print("user : ");//ubuntu
                         target.setUser(scan.next());
                         System.out.print("pass : ");//test
-                        target.setPassword(scan.next());
+                        target.setPass(scan.next());
                         System.out.print("port : ");//22
                         target.setPort(scan.nextInt());
                         System.out.println("---------------------------------------");
