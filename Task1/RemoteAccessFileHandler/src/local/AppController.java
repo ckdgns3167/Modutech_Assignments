@@ -1,14 +1,10 @@
 package local;
 
-import com.jcraft.jsch.JSchException;
-
 import java.util.Scanner;
 
 public class AppController {
 
     private static Scanner scan = null;
-
-    private static boolean isRunning = true;
 
     public static void main(String[] args) {
 
