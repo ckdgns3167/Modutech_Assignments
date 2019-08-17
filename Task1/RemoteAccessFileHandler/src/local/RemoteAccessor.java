@@ -2,24 +2,26 @@ package local;
 
 import com.jcraft.jsch.*;
 
-public class JRemoteSecureAccessor {
+public class RemoteAccessor {
 
     private JSch jsch = null;
     private Session session = null;
     private Channel channel = null;
-    //    private ChannelSftp sftpChannel = null;
 
-    AccessTarget target = new AccessTarget();//접속 대상을 의미하는 클래스에 대한 인스턴스를 생성함.
+    AccessTarget target = new AccessTarget(); // 접속 대상, 즉 ssh로 연결될 원격 컴퓨터의 정보를 추상화한 클래스. 이에 대한 인스턴스를 생성.
 
+    // 원격으로 컴퓨터에 접속하고 shell prompt를 사용하게 해줌.
     public void ConnectToRemoteComputer() {
         try {
             jsch = new JSch();
             session = jsch.getSession(target.getUser(), target.getTarget(), target.getPort());
             session.setPassword(target.getPass());
-            session.setConfig("StrictHostKeyChecking", "no");
-            session.connect(30000);   // making a connection with timeout.
-
-            this.remoteShellPrompt(session);
+            System.out.println("1");
+            session.setConfig("StrictHostKeyChecking", "no"); // config 설정 : ssh_config 에 호스트 키가 없더라도 바로 접속이 되도록 설정, 우분투의 경우 /etc/ssh/ssh_config 에 아래 설정을 추가됨.
+            System.out.println("2");
+            session.connect(30000); // 시간 내에 접속을 안하면 연결 요청 취소
+            System.out.println("3");
+            this.remoteShellPrompt(session);//원격에 있는 컴퓨터의 shell을 사용.
         } catch (JSchException e) {
             System.out.println(e);
         }
@@ -27,6 +29,7 @@ public class JRemoteSecureAccessor {
 
     public void remoteShellPrompt(Session session) {
         try {
+            System.out.println("2");
             channel = session.openChannel("shell");
             channel.setInputStream(System.in);
             channel.setOutputStream(System.out);
