@@ -181,7 +181,12 @@
     1. sftp 명령어 실습을 통한 이해. [ put | get ] + [file name]
        - 파일이름이 #으로 시작하는 것을 put으로 원격  시스템으로 복사하려고 했는데, 인식을 못하더라...
        - 파일이 복사될 곳과  복사할 파일이 존재하는 곳으로 각각 cd 와 lcd를 통해 이동해서 한다.
-    2. 
+  - sad
+  - 2019.08.17.SAT
+    1. JSch API에 대한 공부
+       - JSch, Session, Channel
+  - 2019.08.18.SUN
+    1. 
 
 ----------------------
 
@@ -220,3 +225,11 @@
   * https://gs.saro.me/dev?tn=581 <자바 리눅스 SSH 사용하기>
   
   * https://gs.saro.me/dev?tn=574 <자바 : FTP , SFTP , ,FTPS 사용하기>
+  
+  * http://www.jcraft.com/jsch/examples/Shell.java.html <JSch 공식 사이트>
+  
+  * https://epaul.github.io/jsch-documentation/javadoc/ <JSch documentation>
+  
+  * https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/Session.html <Session documentation>
+  
+  * https://epaul.github.io/jsch-documentation/simple.javadoc/com/jcraft/jsch/Channel.html <Channel documentation>
