@@ -5,8 +5,8 @@ import com.jcraft.jsch.*;
 public class RemoteAccessor {
 
     private JSch jsch = null;
-    private Session session = null;
     private Channel channel = null;
+    private Session session = null;
 
     AccessTarget target = new AccessTarget(); // 접속 대상, 즉 ssh로 연결될 원격 컴퓨터의 정보를 추상화한 클래스. 이에 대한 인스턴스를 생성.
 
@@ -16,11 +16,13 @@ public class RemoteAccessor {
             jsch = new JSch();
             session = jsch.getSession(target.getUser(), target.getTarget(), target.getPort());
             session.setPassword(target.getPass());
-            System.out.println("1");
-            session.setConfig("StrictHostKeyChecking", "no"); // config 설정 : ssh_config 에 호스트 키가 없더라도 바로 접속이 되도록 설정, 우분투의 경우 /etc/ssh/ssh_config 에 아래 설정을 추가됨.
-            System.out.println("2");
+            session.setConfig("StrictHostKeyChecking", "no");
+            /*
+                config 설정 : ssh_config 에 호스트 키가 없더라도 바로 접속이 되도록 설정, 우분투의 경우 /etc/ssh/ssh_config 에 아래 설정을 추가됨.
+                해주는 이유 : ssh 로 리모트 서버에 접속시 호스트 키가 ~/.ssh/known_hosts 파일에 없을경우 추가할지를 물어본다.
+                보통 때는 문제 될 것이 없지만 배치 작업등을 할 경우는 일일이 호스트 키를 추가했는지 확인하기 때문에 귀찮다.
+             */
             session.connect(30000); // 시간 내에 접속을 안하면 연결 요청 취소
-            System.out.println("3");
             this.remoteShellPrompt(session);//원격에 있는 컴퓨터의 shell을 사용.
         } catch (JSchException e) {
             System.out.println(e);
@@ -29,7 +31,6 @@ public class RemoteAccessor {
 
     public void remoteShellPrompt(Session session) {
         try {
-            System.out.println("2");
             channel = session.openChannel("shell");
             channel.setInputStream(System.in);
             channel.setOutputStream(System.out);

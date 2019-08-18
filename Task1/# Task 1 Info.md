@@ -181,14 +181,15 @@
     1. **커맨드 라인으로 sftp 명령어 실습**을 통한 이해. **[ put | get ] + [file name]**
        - 파일이름이 #으로 시작하는 것을 put으로 원격  시스템으로 복사하려고 했는데, 인식을 못하더라...
        - 파일이 복사될 곳과  복사할 파일이 존재하는 곳으로 각각 cd 와 lcd를 통해 이동해서 한다.
-    2. intelliJ 웹 프로젝트를 생성했다.
-  
-  
+2. intelliJ 웹 프로젝트를 생성했다.
   
   - 2019.08.16.FRI
     1. Client.java : JSch(Java Secure Channel) 라이브러리를 이용한 sFTP 원격 연결부, 연결해지부 구현.
-    2. 
-
+  - 2019.08.17.SAT
+    1. JSch API에 대한 공부
+       - JSch, Session, Channel
+  - 2019.08.18.SUN
+  1. 
 ----------------------
 
 * ### 참고 사이트
@@ -230,3 +231,12 @@
   * https://steemit.com/kr-dev/@capslock/java-sftp-using-jsch-sftp <Java SFTP Using Jsch - 자바로 SFTP 파일 업로드/다운로드 개발>
   
   * https://www.leafcats.com/177 <[JSch 라이브러리 : java 에서 원격 ssh 명령어 실행]>
+  
+  * http://www.jcraft.com/jsch/examples/Shell.java.html <JSch 공식 사이트>
+  
+  * https://epaul.github.io/jsch-documentation/javadoc/ <JSch documentation>
+  
+  * https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/Session.html <Session documentation>
+  
+  * https://epaul.github.io/jsch-documentation/simple.javadoc/com/jcraft/jsch/Channel.html <Channel documentation>
+  
