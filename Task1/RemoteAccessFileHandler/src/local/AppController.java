@@ -3,16 +3,16 @@ package local;
 public class AppController {
 
     private AppView view = null;
-    private RemoteAccessor jrsa = null;
+    private RemoteAccessor ra = null;
 
     public void run() {
 
         view = new AppView();
-        jrsa = new RemoteAccessor();
+        ra = new RemoteAccessor();
 
         view.programIntro();
-        view.EnterRemoteSshData(jrsa);
+        view.EnterRemoteSshData(ra);
 
-        jrsa.ConnectToRemoteComputer();
+        ra.ConnectToRemoteComputer();
     }
 }
