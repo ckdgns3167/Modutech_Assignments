@@ -157,9 +157,9 @@
 
 ------------
 
-* ### 과제 요구 기술
+* ### 과제  내용
 
-  * 
+  * (가정) 로컬인  client가 다른 원격 컴퓨터(Virtual Box's ubuntu)에게 어떤 것을 요구하면 그 요구로부터 어떠한 파일을 생성한다. 하지만 그 파일이 생성되기 까지 시간이 얼마나 걸릴지 모르는 일이라고 해보자. 시간이 지나 언젠가 파일이 생성될 것이고 그 생성되었음을 REST API  서버에게 알려주고 서버는 다시 원격컴퓨터에게 그 파일을 다운받겠다는  신호를 보내고 다운로드가 이루어지게 된다. 
 
 ------
 
@@ -178,9 +178,15 @@
   
 
   - 2019.08.15.THU
-    1. sftp 명령어 실습을 통한 이해. [ put | get ] + [file name]
+    1. **커맨드 라인으로 sftp 명령어 실습**을 통한 이해. **[ put | get ] + [file name]**
        - 파일이름이 #으로 시작하는 것을 put으로 원격  시스템으로 복사하려고 했는데, 인식을 못하더라...
        - 파일이 복사될 곳과  복사할 파일이 존재하는 곳으로 각각 cd 와 lcd를 통해 이동해서 한다.
+    2. intelliJ 웹 프로젝트를 생성했다.
+  
+  
+  
+  - 2019.08.16.FRI
+    1. Client.java : JSch(Java Secure Channel) 라이브러리를 이용한 sFTP 원격 연결부, 연결해지부 구현.
     2. 
 
 ----------------------
@@ -220,3 +226,7 @@
   * https://gs.saro.me/dev?tn=581 <자바 리눅스 SSH 사용하기>
   
   * https://gs.saro.me/dev?tn=574 <자바 : FTP , SFTP , ,FTPS 사용하기>
+  
+  * https://steemit.com/kr-dev/@capslock/java-sftp-using-jsch-sftp <Java SFTP Using Jsch - 자바로 SFTP 파일 업로드/다운로드 개발>
+  
+  * https://www.leafcats.com/177 <[JSch 라이브러리 : java 에서 원격 ssh 명령어 실행]>
