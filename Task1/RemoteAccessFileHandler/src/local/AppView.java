@@ -11,7 +11,7 @@ public class AppView {
     }
 
     public void programIntro(){
-        System.out.println("/............................................ㅁㄴㅇ.................\\");
+        System.out.println("/.............................................................\\");
         System.out.println("|..............START REMOTE SHELL ACCESS PROGRAM..............|");
         System.out.println("\\............................................................./\n");
     }
