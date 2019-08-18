@@ -40,7 +40,7 @@ public class RemoteAccessor {
     public void getRemoteShellPrompt(Session session) {
         System.out.println(">>>>> The connection is complete. Use as much as you like.<<<<<\n");
         try {
-            channel = (ChannelShell) session.openChannel("shell");
+            channel = session.openChannel("shell");
             channel.setInputStream(System.in);
             channel.connect(C_CONNECTION_TIMEOUT);
             InputStream inputStream = channel.getInputStream(); // <- 일반 출력 스트림
