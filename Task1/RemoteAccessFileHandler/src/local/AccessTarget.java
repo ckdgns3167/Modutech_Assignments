@@ -2,9 +2,9 @@ package local;
 
 class AccessTarget{
     String target = null;//접속 대상 IP
-    Integer port = null;
     String user = null;
     String pass = null;
+    Integer port = null;
 
     public String getTarget() {
         return target;
