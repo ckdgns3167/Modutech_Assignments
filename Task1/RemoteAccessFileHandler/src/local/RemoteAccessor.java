@@ -115,48 +115,48 @@ public class RemoteAccessor {
         System.out.println("[!] File uploaded successfully - " + file.getAbsolutePath());
     }
 
-//    public void download(String fileName, String localDir) {
-//
-//        byte[] buffer = new byte[1024];
-//        BufferedInputStream bis = null;
-//        File file = null;
-//        File newFile = null;
-//        OutputStream os = null;
-//        BufferedOutputStream bos = null;
-//        // Change to output directory
-//        String cdDir = fileName.substring(0, fileName.lastIndexOf("/") + 1);
-//        try {
-//
-//            sftpChannel.cd(cdDir);
-//            file = new File(fileName);
-//            bis = new BufferedInputStream(sftpChannel.get(file.getName()));
-//            newFile = new File(localDir + "/" + file.getName());
-//
-//            // Download file
-//            os = new FileOutputStream(newFile);
-//            bos = new BufferedOutputStream(os);
-//            int readCount;
-//            while ((readCount = bis.read(buffer)) > 0) {
-//                bos.write(buffer, 0, readCount);
-//            }
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (SftpException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (bis != null)
-//                    bis.close();
-//                if (bos != null)
-//                    bos.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println("File downloaded successfully - " + file.getAbsolutePath());
-//    }
+    public void download(String fileName, String localDir) {
+
+        byte[] buffer = new byte[1024];
+        BufferedInputStream bis = null;
+        File file = null;
+        File newFile = null;
+        OutputStream os = null;
+        BufferedOutputStream bos = null;
+        // Change to output directory
+        String cdDir = fileName.substring(0, fileName.lastIndexOf("/") + 1);
+        try {
+
+            channelSftp.cd(cdDir);
+            file = new File(fileName);
+            bis = new BufferedInputStream(channelSftp.get(file.getName()));
+            newFile = new File(localDir + "/" + file.getName());
+
+            // Download file
+            os = new FileOutputStream(newFile);
+            bos = new BufferedOutputStream(os);
+            int readCount;
+            while ((readCount = bis.read(buffer)) > 0) {
+                bos.write(buffer, 0, readCount);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SftpException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (bis != null)
+                    bis.close();
+                if (bos != null)
+                    bos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("File downloaded successfully - " + file.getAbsolutePath());
+    }
 
     public void disconnect() {
         if (session.isConnected()) {
