@@ -2,18 +2,14 @@ package local;
 
 import com.jcraft.jsch.Session;
 
-import java.util.Scanner;
-
 public class AppController { // controller
 
     private AppView view = null;
     private RemoteAccessor ra = null;
-    private Scanner scan = null;
     public void run() {
 
         view = new AppView(); // view
         ra = new RemoteAccessor(); // model
-        scan = new Scanner(System.in);
         view.programIntro();
         view.EnterRemoteSshData(ra);
 
