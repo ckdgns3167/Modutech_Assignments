@@ -191,7 +191,11 @@
     3. MVC 패턴으로 프로젝트 구조  수정. 솔직히 필요없는데 굳이 했음. 매우 단순한 MVC 패턴임.
   - 2019.08.18.SUN
     1. remote shell 커맨드라인에 입력후 출력되는 부분 수정함.  실제 ubuntu shell을 사용하는 것처럼 하기 위해...
-    2. 
+  - 2019.08.18.MON
+    1. REST API 파라미터 전송하기 성공...result와 완료된 파일의 이름을 넘겨받음.
+    2. remote에서 파일을 local로 전송하는 코드를 짜야함. (sftp)
+    3. 그러려면 jsp 에서 원격에 있는 java(파일 전송하는...) 를 실행토록 해야함...
+  - 
 ----------------------
 
 * ### 참고 사이트
@@ -241,4 +245,8 @@
   * https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/Session.html <Session documentation>
   
   * https://epaul.github.io/jsch-documentation/simple.javadoc/com/jcraft/jsch/Channel.html <Channel documentation>
+  
+  * https://devtalk.kakao.com/t/java-rest-api/14543 <KakaoDevelopers : Java로 REST API 호출>
+  
+  * https://miniweb4u.tistory.com/25 <java REST API 전송>
   
