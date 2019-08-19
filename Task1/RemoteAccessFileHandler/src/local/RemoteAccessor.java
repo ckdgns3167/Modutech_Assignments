@@ -2,8 +2,7 @@ package local;
 
 import com.jcraft.jsch.*;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class RemoteAccessor {
@@ -14,11 +13,12 @@ public class RemoteAccessor {
     private JSch jsch = null;
     private Channel channel = null; // The abstract base class for the different types of channel which may be associated with a Session.
     private Session session = null; // A Session represents a connection to a SSH server.
+    private ChannelSftp channelSftp = null;
 
     AccessTarget target = new AccessTarget(); // 접속 대상, 즉 ssh로 연결될 원격 컴퓨터의 정보를 추상화한 클래스. 이에 대한 인스턴스를 생성.
 
     // 원격으로 컴퓨터에 접속하고 shell prompt를 사용하게 해줌.
-    public void ConnectToRemoteComputer() {
+    public Session ConnectToRemoteComputer() {
         try {
             jsch = new JSch();
             session = jsch.getSession(target.getUser(), target.getTarget(), target.getPort());
@@ -31,21 +31,21 @@ public class RemoteAccessor {
                 보통 때는 문제 될 것이 없지만 배치 작업등을 할 경우는 일일이 호스트 키를 추가했는지 확인하기 때문에 귀찮다.
              */
             session.connect(S_CONNECTION_TIMEOUT); // 시간 내에 접속을 안하면 연결 요청 취소
-            this.getRemoteShellPrompt(session);//원격에 있는 컴퓨터의 shell을 사용.
         } catch (JSchException e) {
             System.out.println(e);
         }
+        return session;
     }
 
     public void getRemoteShellPrompt(Session session) {
-        System.out.println(">>>>> The connection is complete. Use as much as you like.<<<<<\n");
+        System.out.println("[!] Use Shell as much as you want.");
+        InputStream inputStream = null;
         try {
             channel = session.openChannel("shell");
-            channel.setInputStream(System.in);
+            channel.setInputStream(System.in, true);
             channel.connect(C_CONNECTION_TIMEOUT);
-            InputStream inputStream = channel.getInputStream(); // <- 일반 출력 스트림
+            inputStream = channel.getInputStream(); // <- 일반 출력 스트림
             byte[] buffer = new byte[BUFFER_SIZE];
-
             while (true) {
                 while (inputStream.available() > 0) {
                     int i = inputStream.read(buffer, 0, BUFFER_SIZE);
@@ -53,9 +53,9 @@ public class RemoteAccessor {
                         break;
                     }
                     String output = new String(buffer, 0, i);
-                    if(!output.contains(": ")){
+                    if (!output.contains(": ")) {
                         output = output.substring(output.indexOf("\n") + 1);
-                    }else if(output.contains("-bash"))
+                    } else if (output.contains("-bash"))
                         output = output.substring(output.indexOf("\n") + 1);
                     System.out.print(output);
                 }
@@ -67,8 +67,6 @@ public class RemoteAccessor {
                 }
                 TimeUnit.MILLISECONDS.sleep(100);
             }
-            channel.disconnect();
-            session.disconnect();
         } catch (JSchException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -76,38 +74,46 @@ public class RemoteAccessor {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            if (channel.isConnected())
-                channel.disconnect();
-            if (session.isConnected())
-                session.disconnect();
-            System.out.println("The connection has been terminated. Thank you!");
-            System.exit(0);
+            try {
+                if (inputStream.available() > 0)
+                    inputStream.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
-//    public void upload(String fileName, String remoteDir) {
-//        File file = null;
-//        FileInputStream fis = null;
-//        try {
-//            sftpChannel.cd(remoteDir);
-//            file = new File(fileName);
-//            fis = new FileInputStream(file);
-//            sftpChannel.put(fis, file.getName());
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (SftpException e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                if (fis != null)
-//                    fis.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        System.out.println("File uploaded successfully - " + file.getAbsolutePath());
-//    }
+    public void upload(String[] nameAndAddress) {
+        String fileName = nameAndAddress[0];
+        String remoteDir = nameAndAddress[1];
+        File file = null;
+        FileInputStream fis = null;
+        try {
+            channel = session.openChannel("sftp");
+            channel.connect(C_CONNECTION_TIMEOUT);
+            channelSftp = (ChannelSftp) channel;
+            channelSftp.cd(remoteDir);
+            file = new File(fileName);
+            fis = new FileInputStream(file);
+            channelSftp.put(fis, file.getName());
+        } catch (FileNotFoundException e) {
+            System.out.println("[!] 지정한 경로에서 저장시킬 파일을 찾을 수 없습니다.");
+            return;
+        } catch (SftpException e) {
+            System.out.println("[!] 원격 저장소에 존재하지 않는 파일 경로입니다.");
+            return;
+        } catch (JSchException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fis != null)
+                    fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("[!] File uploaded successfully - " + file.getAbsolutePath());
+    }
 
 //    public void download(String fileName, String localDir) {
 //
@@ -152,50 +158,55 @@ public class RemoteAccessor {
 //        System.out.println("File downloaded successfully - " + file.getAbsolutePath());
 //    }
 
-//    public void disconnect(AccessTarget target) {
-//        if (session.isConnected()) {
-//            sftpChannel.disconnect();
-//            channel.disconnect();
-//            session.disconnect();
-//            System.out.println("Connection has been terminated from " + target.getTarget());
-//        }
-//    }
-class AccessTarget{
-    String target = null;//접속 대상 IP
-    String user = null;
-    String pass = null;
-    Integer port = null;
-
-    public String getTarget() {
-        return target;
+    public void disconnect() {
+        if (session.isConnected()) {
+            session.disconnect();
+        }
+        if (channel != null) {
+            if (channel.isConnected()) {
+                channelSftp.quit();
+                channel.disconnect();
+            }
+        }
+        System.out.println("Connection has been terminated from " + target.getTarget());
     }
 
-    public void setTarget(String host) {
-        this.target = host;
-    }
+    class AccessTarget {
+        String target = null;//접속 대상 IP
+        String user = null;
+        String pass = null;
+        Integer port = null;
 
-    public Integer getPort() {
-        return port;
-    }
+        public String getTarget() {
+            return target;
+        }
 
-    public void setPort(Integer port) {
-        this.port = port;
-    }
+        public void setTarget(String host) {
+            this.target = host;
+        }
 
-    public String getUser() {
-        return user;
-    }
+        public Integer getPort() {
+            return port;
+        }
 
-    public void setUser(String userName) {
-        this.user = userName;
-    }
+        public void setPort(Integer port) {
+            this.port = port;
+        }
 
-    public String getPass() {
-        return pass;
-    }
+        public String getUser() {
+            return user;
+        }
 
-    public void setPass(String pass) {
-        this.pass = pass;
+        public void setUser(String userName) {
+            this.user = userName;
+        }
+
+        public String getPass() {
+            return pass;
+        }
+
+        public void setPass(String pass) {
+            this.pass = pass;
+        }
     }
-}
 }

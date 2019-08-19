@@ -1,18 +1,44 @@
 package local;
 
+import com.jcraft.jsch.Session;
+
+import java.util.Scanner;
+
 public class AppController { // controller
 
     private AppView view = null;
     private RemoteAccessor ra = null;
-
+    private Scanner scan = null;
     public void run() {
 
         view = new AppView(); // view
         ra = new RemoteAccessor(); // model
-
+        scan = new Scanner(System.in);
         view.programIntro();
         view.EnterRemoteSshData(ra);
 
-        ra.ConnectToRemoteComputer();
+        Session session = ra.ConnectToRemoteComputer();
+
+        while (true && session.isConnected()) {
+            int userSelectNum = view.selectProgramFunction();
+            switch (userSelectNum) {
+                case 1: // shell
+                    ra.getRemoteShellPrompt(session);
+                    break;
+                case 2: // upload
+                    ra.upload(view.fileUploadMessage());
+                    break;
+                case 3: // download
+
+                    break;
+                case 4: // exit
+                    view.exitMessage();
+                    ra.disconnect();
+                    System.exit(0);
+                    break;
+                default: // wrong input alert message
+                    view.wrongInputAlertMessage();
+            }
+        }
     }
 }
