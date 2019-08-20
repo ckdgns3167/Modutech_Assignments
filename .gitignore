@@ -183,3 +183,10 @@ Temporary Items
 Task1/**/*.xml
 /*.xml
 /*.iml
+
+.classpath
+.gitignore
+.project
+.settings
+META-INF
+.MF
