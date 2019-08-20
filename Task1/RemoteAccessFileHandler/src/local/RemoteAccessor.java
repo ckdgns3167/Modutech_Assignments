@@ -15,7 +15,7 @@ public class RemoteAccessor {
     private Session session = null; // A Session represents a connection to a SSH server.
     private ChannelSftp channelSftp = null;
 
-    AccessTarget target = new AccessTarget(); // 접속 대상, 즉 ssh로 연결될 원격 컴퓨터의 정보를 추상화한 클래스. 이에 대한 인스턴스를 생성.
+    public AccessTarget target = new AccessTarget(); // 접속 대상, 즉 ssh로 연결될 원격 컴퓨터의 정보를 추상화한 클래스. 이에 대한 인스턴스를 생성.
 
     // 원격으로 컴퓨터에 접속하고 shell prompt를 사용하게 해줌.
     public Session ConnectToRemoteComputer() {
@@ -35,6 +35,24 @@ public class RemoteAccessor {
             System.out.println(e);
         }
         return session;
+    }
+    
+    public void ConnectToRemoteComputer(String a,String b,int c,String d) {
+        try {
+            jsch = new JSch();
+            session = jsch.getSession(a, b, c);
+            session.setPassword(d);
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.setDaemonThread(false);
+            /*
+                config 설정 : ssh_config 에 호스트 키가 없더라도 바로 접속이 되도록 설정, 우분투의 경우 /etc/ssh/ssh_config 에 아래 설정을 추가됨.
+                해주는 이유 : ssh 로 리모트 서버에 접속시 호스트 키가 ~/.ssh/known_hosts 파일에 없을경우 추가할지를 물어본다.
+                보통 때는 문제 될 것이 없지만 배치 작업등을 할 경우는 일일이 호스트 키를 추가했는지 확인하기 때문에 귀찮다.
+             */
+            session.connect(S_CONNECTION_TIMEOUT); // 시간 내에 접속을 안하면 연결 요청 취소
+        } catch (JSchException e) {
+            System.out.println(e);
+        }
     }
 
     public void getRemoteShellPrompt(Session session) {
@@ -126,12 +144,14 @@ public class RemoteAccessor {
         // Change to output directory
         String cdDir = fileName.substring(0, fileName.lastIndexOf("/") + 1);
         try {
-
+        	channel = session.openChannel("sftp");
+            channel.connect(C_CONNECTION_TIMEOUT);
+            channelSftp = (ChannelSftp) channel;
             channelSftp.cd(cdDir);
             file = new File(fileName);
             bis = new BufferedInputStream(channelSftp.get(file.getName()));
             newFile = new File(localDir + "/" + file.getName());
-
+            
             // Download file
             os = new FileOutputStream(newFile);
             bos = new BufferedOutputStream(os);
@@ -145,7 +165,9 @@ public class RemoteAccessor {
             e.printStackTrace();
         } catch (SftpException e) {
             e.printStackTrace();
-        } finally {
+        }catch (JSchException e) {
+            e.printStackTrace();
+        }  finally {
             try {
                 if (bis != null)
                     bis.close();

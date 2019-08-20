@@ -5,10 +5,10 @@ import java.io.OutputStreamWriter;
 
 public class CSVGenerator {
     public static void main(String[] args) {
-        String result = "";
         BufferedWriter w = null;
+        String csvFileName = null;
         try {
-            String csvFileName = "ModutechEmployee.csv";
+            csvFileName = "ModutechEmployee.csv";
             String head = "NO , 이름 , 직책 , 부서 , 나이 , 성별 , 입사일";
             String firstLine = "1 , 윤석규 , 사원 , 개발1팀 , 26 , 남 , 2019-02-01";
             String secondLine = "2 , 정창훈 , 신입 , 개발2팀 , 27 , 남 , 2019-08-01";
@@ -17,10 +17,8 @@ public class CSVGenerator {
             w.write(head);
             w.write(firstLine);
             w.write(secondLine);
-            result = "Success!";
         } catch (IOException e) {
             e.printStackTrace();
-            result = "Fail!";
         } finally {
             if (w != null) {
                 try {
@@ -30,7 +28,5 @@ public class CSVGenerator {
                 }
             }
         }
-        ModutechRestApiHelper ah = new ModutechRestApiHelper();
-        ah.sendREST(result);
     }
 }
