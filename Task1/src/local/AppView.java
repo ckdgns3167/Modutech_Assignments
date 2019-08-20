@@ -34,7 +34,7 @@ public class AppView {
 
     public int selectProgramFunction() {
         System.out.println("[!] Choose the function you want.");
-        System.out.print("[1] connect shell [2] upload file  [3] download file [4] exit : ");
+        System.out.print("[1] Connect shell [2] Upload file [3] Download file [4] Exit : ");
 
         int num = scan.nextInt();
 
@@ -45,7 +45,7 @@ public class AppView {
         System.out.println("[!] Enter the location of the file to upload and the location to save");
         System.out.print(" · Local address : ");
         String local = scan.next();
-        System.out.print(" · remote address : ");
+        System.out.print(" · Remote address : ");
         String remote = scan.next();
         return new String[]{local, remote};
     }
