@@ -8,7 +8,7 @@ import java.net.URLEncoder;
 
 public class ModutechRestApiHelper {
 
-    private static final String API_SERVER_HOST  = "http://localhost:8081/index.jsp";
+    private static final String API_SERVER_HOST  = "http://192.168.2.42:8081/index.jsp";
 
     public static void sendREST(String result) throws IllegalStateException {
 
