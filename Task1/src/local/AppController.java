@@ -24,7 +24,7 @@ public class AppController { // controller
                 case 2: // upload
                     ra.upload(view.fileUploadMessage());
                     break;
-                case 3: // download
+                case 3: // execute and download : 원격에 있는 java 실행 후 결과로 나온 파일을 다운받는 기능.
 
                     break;
                 case 4: // exit
