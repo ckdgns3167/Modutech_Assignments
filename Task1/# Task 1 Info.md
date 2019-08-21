@@ -195,7 +195,11 @@
     1. REST API 파라미터 전송하기 성공...result와 완료된 파일의 이름을 넘겨받음.
     2. remote에서 파일을 local로 전송하는 코드를 짜야함. (sftp)
     3. 그러려면 jsp 에서 원격에 있는 java(파일 전송하는...) 를 실행토록 해야함...
-  - 
+  - 2019.08.18.TUE
+    1. 잘못된 방향으로 과제를 수행하고 있었음.  과제는 REST API 서버를 구축하는 것인데, 내가 한것은 단순하게  URL옆에  파라미터로 값 넘겨주는 것을  했음. 난 아직 JSP에만  얽매여 있다보니 다양한  시도를  안하려 했음.  바닥부터  다시 새롭게 공부해야  하는 부분임.
+    2. 부장님께서 아직 내 레벨에  맞지  않는 과제라 판단하시어 조금  더  쉽게  과제를 바꿔주심.
+    3. 원격에 접속해서 ls를 해서 나온 파일들 중 하나를 로컬로 다운로드하는  것으로 ...<<해결>>
+    4. Jsch 라이브러리 사이트에 Examples를 보고 구현했음.
 ----------------------
 
 * ### 참고 사이트
@@ -249,4 +253,6 @@
   * https://devtalk.kakao.com/t/java-rest-api/14543 <KakaoDevelopers : Java로 REST API 호출>
   
   * https://miniweb4u.tistory.com/25 <java REST API 전송>
+  
+  * https://epaul.github.io/jsch-documentation/javadoc/com/jcraft/jsch/ChannelSftp.html <ChannelSftp doc>
   
