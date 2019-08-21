@@ -6,30 +6,31 @@ public class AppController { // controller
 
     private AppView view = null;
     private RemoteAccessor ra = null;
+
+    public AppController(){
+        this.view = new AppView(); // view
+        this.ra = new RemoteAccessor(); // model
+    }
+
     public void run() {
 
-        view = new AppView(); // view
-        ra = new RemoteAccessor(); // model
-        view.programIntro();
-        view.EnterRemoteSshData(ra);
+        view.intro();
+        view.EnterSSHData(ra);
 
-        Session session = ra.ConnectToRemoteComputer();
+        Session session = ra.getSession();
 
         while (true && session.isConnected()) {
             int userSelectNum = view.selectProgramFunction();
             switch (userSelectNum) {
-                case 1: // shell
-                    ra.getRemoteShellPrompt(session);
+                case 1: // use shell
+                    ra.openShell(session);
                     break;
-                case 2: // upload
-                    ra.upload(view.fileUploadMessage());
+                case 2: // use sFTP
+                    ra.openSftp(session);
                     break;
-                case 3: // execute and download : 원격에 있는 java 실행 후 결과로 나온 파일을 다운받는 기능.
-
-                    break;
-                case 4: // exit
-                    view.exitMessage();
+                case 3: // program exit
                     ra.disconnect();
+                    view.exitMessage(ra);
                     System.exit(0);
                     break;
                 default: // wrong input alert message
