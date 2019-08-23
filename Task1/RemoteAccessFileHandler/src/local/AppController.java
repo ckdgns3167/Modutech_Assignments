@@ -3,25 +3,28 @@ package local;
 import com.jcraft.jsch.Session;
 
 public class AppController { // controller
+    private Session session = null;
+    private AppView view;
+    private RemoteAccessor ra;
 
-    private AppView view = null;
-    private RemoteAccessor ra = null;
-
-    public AppController(){
+    public AppController() {
         this.view = new AppView(); // view
         this.ra = new RemoteAccessor(); // model
     }
 
     public void run() {
 
-        view.intro();
-        view.EnterSSHData(ra);
+        this.view.intro();
+        this.view.EnterSSHData(ra);
+        this.session = view.loading(ra);
 
-        Session session = ra.getSession();
-
+        String userInput;
+        int selectedNumber = -1;
         while (true && session.isConnected()) {
-            int userSelectNum = view.selectProgramFunction();
-            switch (userSelectNum) {
+            userInput = view.selectProgramFunction();
+            if (view.isStringDouble(userInput))
+                selectedNumber = Integer.parseInt(userInput);
+            switch (selectedNumber) {
                 case 1: // use shell
                     ra.openShell(session);
                     break;
@@ -33,7 +36,7 @@ public class AppController { // controller
                     view.exitMessage(ra);
                     System.exit(0);
                     break;
-                default: // wrong input alert message
+                default:
                     view.wrongInputAlertMessage();
             }
         }
