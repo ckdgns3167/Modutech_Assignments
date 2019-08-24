@@ -59,7 +59,7 @@ public class AppView {
     }
 
     public void exitMessage(RemoteAccessor ra) {
-        System.out.println("[!] Connection has been terminated from " + ra.target.getTarget() + "\n[!] Thank you!");
+        System.out.println("[!] Connection has been terminated from " + ra.target.getTarget() + "\n[!] Thank you! bye~");
     }
 
     public void wrongInputAlertMessage() {
