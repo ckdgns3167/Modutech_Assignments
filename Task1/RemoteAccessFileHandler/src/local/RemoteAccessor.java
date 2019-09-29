@@ -1,7 +1,6 @@
 package local;
 
 import com.jcraft.jsch.*;
-
 import javax.swing.*;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
