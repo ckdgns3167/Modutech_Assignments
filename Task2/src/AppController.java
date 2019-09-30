@@ -10,7 +10,7 @@ public class AppController {
 	private static final String REMOTEFILEPATH = "/home/ubuntu/Downloads";// 실행시킬 파일 위치
 	private static final String E_FILENAME = "txt_2_csv.sh";// 실행시킬 파일 이름
 	private static final String LOCALFILEPATH = "C:\\Users\\82109\\Desktop";// 다운로드할 장소
-	private static final String D_FILENAME = "test.csv";// 다운로드할 파일 이름
+	private static final String RESULT_FILENAME = "test.csv";// 다운로드할 파일 이름
 
 	private Session session = null;
 	private ConsolePrinter printer;
@@ -23,8 +23,8 @@ public class AppController {
 		this.printer = new ConsolePrinter();
 		this.sc = new SSHConnector();
 		this.target = new AccessTarget(IP, USER, PASS, PORT);
-		this.erp = new ExecuteRemoteProgram(REMOTEFILEPATH, E_FILENAME);
-		this.dr = new DownloadResult(LOCALFILEPATH, REMOTEFILEPATH, D_FILENAME);
+		this.erp = new ExecuteRemoteProgram(REMOTEFILEPATH, E_FILENAME, RESULT_FILENAME);
+		this.dr = new DownloadResult(LOCALFILEPATH, REMOTEFILEPATH, RESULT_FILENAME);
 	}
 
 	public void run() {

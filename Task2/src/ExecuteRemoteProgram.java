@@ -8,10 +8,12 @@ import com.jcraft.jsch.Session;
 public class ExecuteRemoteProgram {// 원격 서버에 SSH로 연결된 상태에서 원격 프로그램을 실행시킨다.
 	private String remoteLocation;
 	private String filename;
+	private String result_fileName;
 
-	public ExecuteRemoteProgram(String remoteLocation, String filename) {
+	public ExecuteRemoteProgram(String remoteLocation, String filename, String result_fileName) {
 		this.remoteLocation = remoteLocation;
 		this.filename = filename;
+		this.result_fileName = result_fileName;
 	}
 
 	public void execute(Session session) {
@@ -21,8 +23,8 @@ public class ExecuteRemoteProgram {// 원격 서버에 SSH로 연결된 상태�
 
 		try {
 			channel = session.openChannel("exec");
-			((ChannelExec) channel).setCommand("cd " + remoteLocation + "; ./" + filename + " test.txt test.csv");
-			System.out.println("[!] 실행할 명령어 : cd " + remoteLocation + "; ./" + filename + " test.txt test.csv");
+			((ChannelExec) channel).setCommand("cd " + remoteLocation + "; ./" + filename + " test.txt " + result_fileName);
+			System.out.println("[!] 실행할 명령어 : cd " + remoteLocation + "; ./" + filename + " test.txt " + result_fileName);
 			((ChannelExec) channel).setErrStream(System.err);
 			channel.connect();
 
