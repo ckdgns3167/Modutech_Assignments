@@ -35,11 +35,10 @@ public class AppController {
 
 		System.out.println("-------------원격으로 프로그램 실행-------------");
 		erp.execute(session);
-		System.out.println("------------프로그램 로컬로 다운로드-------------");
 		/*
 		 * 실행 완료됐다고 REST API로 알린 후 다운로드
 		 */
-
+		System.out.println("------------프로그램 로컬로 다운로드-------------");
 		dr.downloads(session);
 
 		this.printer.exitMessage(target);
