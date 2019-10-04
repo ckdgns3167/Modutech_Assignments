@@ -179,7 +179,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-
+node_modules
 Task1/**/*.xml
 /*.xml
 /*.iml
@@ -190,3 +190,4 @@ Task1/**/*.xml
 .settings
 META-INF
 .MF
+
