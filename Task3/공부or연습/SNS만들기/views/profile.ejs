@@ -1,0 +1,18 @@
+<div class="timeline">
+    <div class="followings half">
+        <h2>팔로잉 목록</h2>
+        <% if (user.followings) { %>
+        <% for (var following = 0; following < user.Followings.length; following++) {%>
+        <div><%= following.nick %></div>
+        <% } %>
+        <% } %>
+    </div>
+    <div class="followers half">
+        <h2>팔로워 목록</h2>
+        <% if (user.followers) { %>
+        <% for (var follower = 0; follower < user.Followers.length; follower++) {%>
+        <div><%= follower.nick %></div>
+        <% } %>
+        <% } %>
+    </div>
+</div>

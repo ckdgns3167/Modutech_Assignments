@@ -1,0 +1,161 @@
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+.btn {
+  display: inline-block;
+  padding: 0 5px;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 4px;
+  background: white;
+  border: 1px solid silver;
+  color: crimson;
+  height: 37px;
+  line-height: 37px;
+  vertical-align: top;
+  font-size: 12px;
+}
+input[type='text'], input[type='email'], input[type='password'], textarea {
+  border-radius: 4px;
+  height: 37px;
+  padding: 10px;
+  border: 1px solid silver;
+}
+.container { width: 100% !important; height: 95%; margin-right: 0px !important; margin-left: 0px !important; }
+header {  padding: 10px 0 10px 0; background: #98ebdc; border: 3px solid #228b22;}
+
+.input-group { margin-bottom: 15px; }
+.input-group label { width: 40px; display: inline-block; margin-left: 5px;}
+.input-group input { width: 200px;}
+.half { float: left; width: 50%; margin: 10px 0; }
+
+.profile-wrap {
+  width: 290px; 
+  margin-bottom: 0;
+  display: inline-block;
+  vertical-align: top;
+  margin: 10px 0;
+}
+
+.profile {
+  text-align: left;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 4px;
+  border: 3px solid #228b22;
+  background: #98ebdc;
+}
+.user-name { font-weight: bold; font-size: 18px; }
+.count { font-weight: bold; color: crimson; font-size: 18px; }
+.timeline {
+  margin-top: 10px;
+  width: 100%;
+  display: inline-block;
+  margin-right: 20px;
+  border-radius: 4px;
+  vertical-align: top;
+}
+
+#twit-form {
+  border-bottom: 1px solid silver;
+  padding: 10px;
+  background: lightcoral;
+  overflow: hidden;
+}
+#img-preview { max-width: 100%; }
+#img-label {
+  float: left;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid crimson;
+  padding: 0 10px;
+  color: white;
+  font-size: 12px;
+  height: 37px;
+  line-height: 37px;
+}
+#img { display: none; }
+#twit { width: 100%; min-height: 72px; }
+#twit-btn {
+  float: right;
+  color: white;
+  background: crimson;
+  border: none;
+}
+.twit {
+  border: 1px solid silver;
+  border-radius: 4px;
+  padding: 10px;
+  position: relative;
+  margin-bottom: 10px;
+}
+.twit-author { display: inline-block; font-weight: bold; margin-right: 10px; }
+.twit-follow {
+  padding: 1px 5px;
+  background: #fff;
+  border: 1px solid silver;
+  border-radius: 5px;
+  color: crimson;
+  font-size: 12px;
+  cursor: pointer;
+}
+.twit-img { text-align: center; }
+.twit-img img { max-width: 75%; }
+.error-message { color: red; font-weight: bold; }
+#search-form { text-align: right; }
+#join-form { padding: 10px; text-align: center; }
+#hashtag-form { text-align: right; }
+footer { text-align: center; height: 5%; background: #98ebdc; }
+.mr5 {
+  margin-right: 5px;
+}
+.mr10 {
+  margin-right: 10px;
+}
+
+.ml10 {
+  margin-left: 10px;
+}
+.mt0 {
+  margin-top: 0px;
+}
+
+.mb0 {
+  margin-bottom: 0px;
+}
+
+.pt8 {
+  padding-top: 8px;
+}
+
+.pl0 {
+  padding-left: 0px !important;
+}
+
+.pr0 {
+  padding-right: 0px !important;
+}
+
+.pl10 {
+  padding-left: 10px !important;
+}
+
+.pl30 {
+  padding-left: 30px !important;
+}
+
+.pt10 {
+  padding-top: 10px;
+}
+
+.mr20 {
+  margin-right: 20px;
+}
+
+.site-name {
+  color: white;
+  text-shadow: 0 0 4px black;
+}
+
+.w200 {
+  width: 200px;
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>정창훈's SNS</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/main.css" />
+
+    <!--jQuery-->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <% include ./header.ejs %>
+    <div class="container pl0 pr0">
+        <div class="profile-wrap">
+            <div class="profile">
+                <% if (user && user.id) { %>
+                <div class="user-name">안녕하세요! <%= user.nick %>님</div>
+                <div class="harf">
+                    <div>팔로잉</div>
+                    <div class="count following-count">
+                        <%= user.Followings %> && <%= user.Followings.length || 0 %>
+                    </div>
+                </div>
+                <div>팔로워</div>
+                <div class="half">
+                    <div class="count follower-count">
+                        <%= user.Followers %> && <%= user.Followers.length || 0 %>
+                    </div>
+                </div>
+                <input type="hidden" id="my-id" value="<%= user.id %>" />
+                <a href="/profile" id="my-profile" class="btn">내 프로필</a>
+                <a href="/auth/logout" id="logout" class="btn">로그아웃</a>
+                <% } else { %>
+                <form action="/auth/login" method="POST" id="login-form">
+                    <div class="input-group">
+                        <label for="email">&nbspID</label>
+                        <input type="email" id="email" name="email" required autofocus />
+                    </div>
+                    <div class="input-group">
+                        <label for="password">PW</label>
+                        <input type="password" id="password" name="password" required />
+                    </div>
+                    <% if(loginError) {%>
+                    <div class="error-message"><%= loginError%></div>
+                    <% } %>
+                    <div class="row">
+                        <div class="col-xs-8 pl30 pt10">
+                            <a href="/join" id="join" class="mr20">회원가입</a>
+                            <a href="/auth/kakao" id="kakao">카카오톡</a>
+                        </div>
+                        <div class="col-xs-4 pl0">
+                            <button id="login" class="btn" type="submit">로그인</button>
+                        </div>
+                    </div>
+                </form>
+                <% } %>
+            </div>
+        </div>
+        <div class="timeline">
+            <% if ( user ) { %>
+            <div>
+                <form action="/post" method="post" enctype="multipart/form-data" id="twit-form">
+                    <div class="input-group">
+                        <textarea name="content" id="twit" maxlength="140"></textarea>
+                    </div>
+                    <div class="img-preview">
+                        <img src="" style="display: none;" alt="미리보기" width="250" id="img-preview">
+                        <input type="hidden" name="url" id="img-url">
+                    </div>
+                    <div>
+                        <label for="img" id="img-label">사진 업로드</label>
+                        <input type="file" accept="image/*" id="img">
+                        <button id="twit-btn" type="submit" class="btn">짹짹</button>
+                    </div>
+                </form>
+            </div>
+            <% }%>
+        </div>
+    </div>
+    <% include ./footer.ejs %>
+</body>
+
+</html>
+<script>
+    if (document.getElementById('img')) {
+        document.getElementById('img').addEventListener('change', function (e) {
+            var formData = new FormData();
+            console.log(this, this.files);
+            formData.append('img', this.files[0]);
+            var xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var url = JSON.parse(xhr.responseText).url;
+                    document.getElementById('img-url').value = url;
+                    document.getElementById('img-preview').src = url;
+                    document.getElementById('img-preview').style.display = 'inline';
+                } else {
+                    console.error(xhr.responseText);
+                }
+            };
+            xhr.open('POST', '/post/img');
+            xhr.send(formData);
+        });
+    }
+    document.querySelectorAll('.twit-follow').forEach(function (tag) {
+        tag.addEventListener('click', function () {
+            var isLoggedIn = document.querySelector('#my-id');
+            if (isLoggedIn) {
+                var userId = tag.parentNode.querySelector('.twit-user-id').value;
+                var myId = isLoggedIn.value;
+                if (userId !== myId) {
+                    if (confirm('팔로잉하시겠습니까?')) {
+                        var xhr = new XMLHttpRequest();
+                        xhr.onload = function () {
+                            if (xhr.status === 200) {
+                                location.reload();
+                            } else {
+                                console.error(xhr.responseText);
+                            }
+                        };
+                        xhr.open('POST', '/user/' + userId + '/follow');
+                        xhr.send();
+                    }
+                }
+            }
+        });
+    });
+</script>
