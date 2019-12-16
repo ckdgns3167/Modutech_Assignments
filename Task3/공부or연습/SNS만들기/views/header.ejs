@@ -1,8 +1,9 @@
 <header class="twits">
     <div class="row">
         <div class="col-md-8 col-sm-6 col-xs-4">
-            <h1 class="site-name mt0 mb0 ml10">SNS</h1>
+            <h1 class="site-name mt0 mb0 ml10 w80"><a href="/">SNS</a></h1>
         </div>
+        <% if (tagSearchVisualization) { %>
         <div class="col-md-4 col-sm-6 col-xs-8">
             <form action="/post/hashtag" id="hashtag-form">
                 <input class="mr5 w200" type="text" name="hashtag" placeholder="태그 검색">
@@ -26,5 +27,6 @@
             </div>
             <% } %>
         </div>
+        <% } %>
     </div>
 </header>

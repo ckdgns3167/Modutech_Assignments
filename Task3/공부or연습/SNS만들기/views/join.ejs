@@ -1,20 +1,52 @@
-<div class="timeline">
-    <form action="/auth/join" method="post" id="join-form">
-        <div class="input-group">
-            <label for="join-email">이메일</label>
-            <input type="email" name="email" id="join-email">
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title><%= title%></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="/main.css" />
+
+    <!--jQuery-->
+    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 합쳐지고 최소화된 최신 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!-- 부가적인 테마 -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <% include ./header.ejs %>
+    <div class="container">
+        <div class="join-page-title">
+            <p><b>회원 가입</b></p>
         </div>
-        <div class="input-group">
-            <label for="join-nick">닉네임</label>
-            <input type="text" name="nick" id="join-nick">
+        <div class="join-page">
+            <form action="/auth/join" method="post" id="join-form">
+                <div class="input-group mrml-auto mt50">
+                    <label for="join-email">&nbsp&nbsp&nbsp이메일</label>
+                    <input type="email" name="email" id="join-email" autocomplete="off" autofocus>
+                </div>
+                <div class="input-group mrml-auto">
+                    <label for="join-nick">&nbsp&nbsp&nbsp닉네임</label>
+                    <input type="text" name="nick" id="join-nick" autocomplete="off">
+                </div>
+                <div class="input-group mrml-auto mb50">
+                    <label for="join-password">비밀번호</label>
+                    <input type="password" name="password" id="join-password" autocomplete="off">
+                </div>
+                <% if (joinError) { %>
+                <div class="error-message"><%= joinError %></div>
+                <% } %>
+                <button id="join-btn" class="btn" type="submit">회원가입</button>
+            </form>
         </div>
-        <div class="input-group">
-            <label for="join-password">비밀번호</label>
-            <input type="password" name="password" id="join-password">
-        </div>
-        <% if (joinError) { %>
-        <div class="error-message"><%= joinError %></div>
-        <% } %>
-        <button id="join-btn" class="btn" type="submit">회원가입</button>
-    </form>
-</div>
+    </div>
+    <% include ./footer.ejs %>
+</body>
+
+</html>

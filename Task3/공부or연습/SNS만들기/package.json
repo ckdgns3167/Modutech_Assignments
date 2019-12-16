@@ -9,6 +9,7 @@
   "author": "ch",
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "bootstrap": "^4.3.1",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.4",
@@ -18,7 +19,10 @@
     "express-session": "^1.16.2",
     "morgan": "^1.9.1",
     "mysql2": "^1.7.0",
-    "sequelize": "^5.19.2"
+    "passport": "^0.4.0",
+    "passport-kakao": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.19.5"
   },
   "devDependencies": {
     "nodemon": "^1.19.3"

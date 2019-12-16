@@ -24,7 +24,7 @@ input[type='text'], input[type='email'], input[type='password'], textarea {
 header {  padding: 10px 0 10px 0; background: #98ebdc; border: 3px solid #228b22;}
 
 .input-group { margin-bottom: 15px; }
-.input-group label { width: 40px; display: inline-block; margin-left: 5px;}
+.input-group label { margin-right: 15px; display: inline-block; margin-left: 5px;}
 .input-group input { width: 200px;}
 .half { float: left; width: 50%; margin: 10px 0; }
 
@@ -53,6 +53,38 @@ header {  padding: 10px 0 10px 0; background: #98ebdc; border: 3px solid #228b22
   margin-right: 20px;
   border-radius: 4px;
   vertical-align: top;
+}
+.m-auto {
+  margin: auto;
+}
+.mrml-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.mt50 {
+  margin-top: 50px;
+}
+
+.mb50 {
+  margin-bottom: 50px;
+}
+
+.join-page-title {
+  text-align: center;
+  font-size: 2em;
+  margin-top: 50px;
+}
+#join-form { 
+  padding: 10px; 
+  text-align: center; 
+  width: 500px !important; 
+  margin: 50px auto auto auto; 
+  border: 3px solid #228b22;
+  background: #98ebdc;
+}
+
+#join-btn, #login  {
+  border: 2px solid #228b22;
 }
 
 #twit-form {
@@ -102,7 +134,7 @@ header {  padding: 10px 0 10px 0; background: #98ebdc; border: 3px solid #228b22
 .twit-img img { max-width: 75%; }
 .error-message { color: red; font-weight: bold; }
 #search-form { text-align: right; }
-#join-form { padding: 10px; text-align: center; }
+
 #hashtag-form { text-align: right; }
 footer { text-align: center; height: 5%; background: #98ebdc; }
 .mr5 {
@@ -156,6 +188,19 @@ footer { text-align: center; height: 5%; background: #98ebdc; }
   text-shadow: 0 0 4px black;
 }
 
+.site-name > a  {
+   color: white;
+}
+
+.site-name > a:hover  {
+  color: white;
+}
+
+
 .w200 {
   width: 200px;
+}
+
+.w80 {
+  width: 80px !important;
 }

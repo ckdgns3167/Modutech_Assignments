@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>정창훈's SNS</title>
+    <title><%= title%></title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +44,7 @@
                 <% } else { %>
                 <form action="/auth/login" method="POST" id="login-form">
                     <div class="input-group">
-                        <label for="email">&nbspID</label>
+                        <label for="email">&nbsp&nbspID</label>
                         <input type="email" id="email" name="email" required autofocus />
                     </div>
                     <div class="input-group">
@@ -92,6 +92,7 @@
 </body>
 
 </html>
+<!-- <script src="../public/common.js"></script> -->
 <script>
     if (document.getElementById('img')) {
         document.getElementById('img').addEventListener('change', function (e) {
